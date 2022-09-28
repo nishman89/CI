@@ -17,7 +17,7 @@ jobs:
       uses: actions/setup-dotnet@v2
       with:
         dotnet-version: 6.0.x
-        working-directory: ./SafariPark_Final
+        working-directory: src/SafariPark_Final
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
