@@ -22,7 +22,7 @@ namespace SafariParkTests
         {
             var subject = new Person("A", "B");
             subject.Age = 35;
-            Assert.AreEqual(33, subject.Age);
+            Assert.AreEqual(23, subject.Age);
         }
     }
 }
