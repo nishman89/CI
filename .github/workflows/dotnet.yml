@@ -20,6 +20,7 @@ jobs:
         working-directory: src/SafariPark_Final
     - name: Restore dependencies
       run: dotnet restore
+      working-directory: src/MyProject
     - name: Build
       run: dotnet build --no-restore
     - name: Test
