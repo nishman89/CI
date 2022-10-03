@@ -24,13 +24,20 @@ jobs:
       run: dotnet build --no-restore
       working-directory: SafariPark_Final
     - name: Test
-      run: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+      run: dotnet test --collect:"XPlat Code Coverage" /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:CoverletOutput=lcov.info
       #new line
       working-directory: SafariPark_Final
 
-    - name: SonarCloud Scan
-      uses: sonarsource/sonarcloud-github-action@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        SONAR_TOKEN: e4747ff7668a0295125e0e830467bed03a1937d0
+    - name : coverlet
+      uses: b3b00/coverlet-action@1.1.9
+      with:
+        testProject: 'SafariPark_Final/SafariParkTests/SafariParkTests.csproj'
+        output: 'lcov.info'
+        outputFormat: 'lcov'
+        excludes: '[program]*,[test]test.*'
+    - name: coveralls      
+      uses: coverallsapp/github-action@v1.1.1
+      with:
+        github-token: ${{secrets.GITHUB_TOKEN }} 
+        path-to-lcov: ${{steps.coverlet.outputs.coverageFile}} 
 
