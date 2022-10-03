@@ -28,7 +28,7 @@ jobs:
       #new line
       working-directory: SafariPark_Final
     - name: Generate coverage report
-      run: dotnet test /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lco
+      run: dotnet test /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
       working-directory: SafariPark_Final
     - name: Publish coverage report to coveralls.io
       uses: coverallsapp/github-action@master
