@@ -28,9 +28,8 @@ jobs:
       #new line
       working-directory: SafariPark_Final
     - name: Generate coverage report
-         run:|
-          cd ./SafariPark_Final/
-          dotnet test /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
+      run: dotnet test /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lco
+      working-directory: SafariPark_Final
     - name: Publish coverage report to coveralls.io
       uses: coverallsapp/github-action@master
       with:
