@@ -23,14 +23,13 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
       working-directory: SafariPark_Final
-    - name: Test
-      run: dotnet test --no-build --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
-      working-directory: SafariPark_Final
-    - name : coverlet
-      uses: b3b00/coverlet-action@1.1.9
+ - name: Generate coverage report
+      run: |
+        cd ./SafariPark_Final/
+        dotnet test /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
+    - name: Publish coverage report to coveralls.io
+      uses: coverallsapp/github-action@master
       with:
-        testProject: 'SafariPark_Final/SafariParkTests/SafariParkTests.csproj'
-        output: 'lcov.info'
-        outputFormat: 'lcov'
-        excludes: '[program]*,[test]test.*'
+        #github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: ./SafariPark_Final/TestResults/coverage.info 
 
