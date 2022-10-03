@@ -24,12 +24,13 @@ jobs:
       run: dotnet build --no-restore
       working-directory: SafariPark_Final
     - name: Test
-      run: dotnet test --collect:"XPlat Code Coverage" /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:CoverletOutput=lcov.info
+      run: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
       #new line
       working-directory: SafariPark_Final
 
-    - name: Report code coverage
-      uses: romeovs/lcov-reporter-action@v0.2.16
-      with:
-        lcov-file: SafariPark_Final/SafariParkTests/lcov.info
+    - name: SonarCloud Scan
+      uses: sonarsource/sonarcloud-github-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
