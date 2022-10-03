@@ -32,7 +32,7 @@ jobs:
       uses: irongut/CodeCoverageSummary@v1.0.2
       # uses: joshjohanning/CodeCoverageSummary@v1.0.2
       with:
-        filename: SafariPark_Final/SafariParkTests/coverage.json
+        filename: SafariPark_Final/SafariParkTests/TestResults
         badge: true
         format: 'markdown'
         output: 'both'
