@@ -23,6 +23,10 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
       working-directory: SafariPark_Final
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
+      #new line
+      working-directory: SafariPark_Final
     - name: Generate coverage report
          run:|
           cd ./SafariPark_Final/
