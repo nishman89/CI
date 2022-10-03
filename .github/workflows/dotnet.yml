@@ -29,13 +29,9 @@ jobs:
       working-directory: SafariPark_Final
 
     - name: Report code coverage
-      uses: zgosalvez/github-actions-report-lcov@v1
+      uses: vebr/jest-lcov-reporter@v0.2.0
       with:
-        coverage-files: coverage.info
-        minimum-coverage: 90
-        artifact-name: code-coverage-report
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        working-directory: SafariPark_Final/SafariParkTests
-        badge: true
+        lcov-file: SafariPark_Final/SafariParkTests/coverage/lcov.info
 
 
