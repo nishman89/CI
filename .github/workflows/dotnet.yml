@@ -28,11 +28,11 @@ jobs:
       #new line
       working-directory: SafariPark_Final
     - name: Generate coverage report
-      run: dotnet test /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
+      run: dotnet test /p:CollectCoverage=true /p:CoverletOutput=TestResults/ 
       working-directory: SafariPark_Final
-    - name: Publish coverage report to coveralls.io
-      uses: coverallsapp/github-action@master
+    - name: Code Coverage Summary Report
+      uses: irongut/CodeCoverageSummary@v1.3.0
       with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: ./SafariPark_Final/TestResults/coverage.info 
+            working-directory: SafariPark_Final/TestResults
+            filename: coverage.cobertura.xml
 
