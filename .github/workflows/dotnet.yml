@@ -33,7 +33,7 @@ jobs:
     - name: Code Coverage Report
       uses: irongut/CodeCoverageSummary@v1.3.0
       with:
-        filename: coverage.info
+        filename: SafariPark_Final/TestResults/coverage.info
         badge: true
         fail_below_min: true
         format: markdown
@@ -41,7 +41,5 @@ jobs:
         hide_complexity: true
         indicators: true
         output: both
-        thresholds: '60 80'
-        working-directory: SafariPark_Final/TestResults
-
+        thresholds: '10 80'
 
