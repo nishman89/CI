@@ -32,7 +32,7 @@ jobs:
       uses: irongut/CodeCoverageSummary@v1.0.2
       # uses: joshjohanning/CodeCoverageSummary@v1.0.2
       with:
-        filename: coverage.info
+        filename: SafariPark_Final/coverage.info
         badge: true
         format: 'markdown'
         output: 'both'
