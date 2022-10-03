@@ -24,7 +24,7 @@ jobs:
       run: dotnet build --no-restore
       working-directory: SafariPark_Final
     - name: Test
-      run: dotnet test --collect:"XPlat Code Coverage" /p:CollectCoverage=true /p:CoverletOutputFormat=lcov
+      run: dotnet test --collect:"XPlat Code Coverage" /p:CollectCoverage=true 
       #new line
       working-directory: SafariPark_Final
 
@@ -32,7 +32,7 @@ jobs:
       uses: irongut/CodeCoverageSummary@v1.0.2
       # uses: joshjohanning/CodeCoverageSummary@v1.0.2
       with:
-        filename: SafariPark_Final/SafariParkTests/coverage.info
+        filename: SafariPark_Final/SafariParkTests/coverage.json
         badge: true
         format: 'markdown'
         output: 'both'
