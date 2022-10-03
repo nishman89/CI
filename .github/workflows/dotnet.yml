@@ -42,4 +42,6 @@ jobs:
         indicators: true
         output: both
         thresholds: '60 80'
+        working-directory: SafariPark_Final/TestResults
+
 
