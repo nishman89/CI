@@ -24,7 +24,7 @@ jobs:
       run: dotnet build --no-restore
       working-directory: SafariPark_Final
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test --collect:"XPlat Code Coverage" /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
       #new line
       working-directory: SafariPark_Final
 
