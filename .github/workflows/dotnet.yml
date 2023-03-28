@@ -1,4 +1,4 @@
-name: .NET
+name: Selenium SpecFlow Web Tests
 
 on:
   push:
@@ -7,37 +7,36 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
-
+  test:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 6.0.x
-    - name: Restore dependencies
+        dotnet-version: '3.1'
+
+    - name: Restore packages
       run: dotnet restore
-      working-directory: SafariPark_Final
+
     - name: Build
-      run: dotnet build --no-restore
-      working-directory: SafariPark_Final
-    - name: Test
-      run: dotnet test --collect:"XPlat Code Coverage" /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:CoverletOutput=lcov.info
-      #new line
-      working-directory: SafariPark_Final
+      run: dotnet build --configuration Release
 
-    - name : coverlet
-      uses: b3b00/coverlet-action@1.1.9
-      with:
-        testProject: 'SafariPark_Final/SafariParkTests/SafariParkTests.csproj'
-        output: 'lcov.info'
-        outputFormat: 'lcov'
-        excludes: '[program]*,[test]test.*'
-    - name: coveralls      
-      uses: coverallsapp/github-action@v1.1.1
-      with:
-        github-token: ${{secrets.GITHUB_TOKEN }} 
-        path-to-lcov: SafariPark_Final/SafariParkTests/lcov.info
+    - name: Run tests
+      run: dotnet test --configuration Release --no-build
 
+    - name: Generate Living Documentation
+      run: dotnet tool run specflow-livingdoc-generator
+      working-directory: tests
+      env:
+        LIVINGDOC_OUTPUTFILE: ${{ github.workspace }}/tests/livingdoc.html
+      continue-on-error: true
+
+    - name: Save Living Documentation Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: Living Documentation
+        path: tests/livingdoc.html
