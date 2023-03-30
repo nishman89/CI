@@ -1,42 +1,36 @@
-name: Selenium SpecFlow Web Tests
+# Workflow name - displayed for status badges (more on this later). Change to "Builds and All unit Tests pass"
+name: .NET
 
+# Trigger this workflow on a push, or pull request to
+# the main branch, when either C# or project files changed
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
+# Defines a single job named "build"
 jobs:
-  test:
+  build:
+
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
+    # step 1: Checkout source code under $GITHUB_WORKSPACE - allows workflow to access it
+    - uses: actions/checkout@v3
+    # step 2: Sets up a .NET CLI environment for the workflow to use
+    - name: Setup .NET 
+      uses: actions/setup-dotnet@v2
       with:
-        dotnet-version: '3.1'
-
-    - name: Restore packages
+      	#.NET version specified
+        dotnet-version: 6.0.x
+    # step 3: restore 
+    - name: Restore dependencies
       run: dotnet restore
-
+    # step 3: build project and all it's dependencies 
     - name: Build
-      run: dotnet build --configuration Release
-
-    - name: Run tests
-      run: dotnet test --configuration Release --no-build
-
-    - name: Generate Living Documentation
-      run: dotnet tool run specflow-livingdoc-generator
-      working-directory: tests
-      env:
-        LIVINGDOC_OUTPUTFILE: ${{ github.workspace }}/tests/livingdoc.html
-      continue-on-error: true
-
-    - name: Save Living Documentation Artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: Living Documentation
-        path: tests/livingdoc.html
+      run: dotnet build --no-restore
+    # step 5: run tests
+    - name: Test
+      #tests are run but it doesnt build the test project before runninf it
+      run: dotnet test --no-build --verbosity normal
